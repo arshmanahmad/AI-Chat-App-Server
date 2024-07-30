@@ -8,5 +8,9 @@ app.use(cors());
 
 
 app.get("/", (req, res) => {
-    response.send("welcome to the API", res);
-})                   
+    res.send("welcome to the API");
+})
+
+app.listen(5000, () => {
+    console.log("server started at 4000");
+})
