@@ -12,6 +12,8 @@ app.get("/", (req, res) => {
     res.send("welcome to the API");
 })
 
+app.use()
+
 app.listen(5000, () => {
-    console.log("server started at 5000");
+    console.log("Server started at 5000");
 })
