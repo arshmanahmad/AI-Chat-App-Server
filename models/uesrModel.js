@@ -19,6 +19,10 @@ const schema = mongoose.Schema({
     password: {
         type: String,
         required: true,
+    },
+    isValid: {
+        type: Boolean,
+        default: false,
     }
 })
 
@@ -30,5 +34,6 @@ const loginSchema = joi.object({
     password: joi.string().required(),
 })
 export {
-    loginSchema
+    loginSchema,
+    User
 }
