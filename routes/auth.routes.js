@@ -1,4 +1,5 @@
 import { loginSchema } from "../models/uesrModel";
+import bodyValidator from "../validation/bodyValidator";
 
 const authRoutes = express.Router()
 
