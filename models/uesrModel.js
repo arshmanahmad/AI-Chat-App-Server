@@ -32,12 +32,20 @@ const schema = mongoose.Schema({
 
 const User = mongoose.model("User", schema)
 
+const userSchema = joi.object({
+    name: joi.string().required,
+    email: joi.string().required,
+    phoneNumber: joi.number().required,
+    password: joi.string().required,
+})
 
 const loginSchema = joi.object({
     email: joi.string().required(),
     password: joi.string().required(),
 })
+
 export {
+    User,
     loginSchema,
-    User
+    userSchema,
 }

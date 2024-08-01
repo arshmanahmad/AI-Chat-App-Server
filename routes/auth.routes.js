@@ -8,6 +8,5 @@ const authRoutes = express.Router()
 authRoutes.post('/login',
     bodyValidator(loginSchema),
     catchAsync(userService.loginUser)
-
 )
 export default authRoutes;
