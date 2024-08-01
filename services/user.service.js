@@ -1,4 +1,4 @@
-import { User } from "../models/uesrModel";
+import { User } from "../models/uesrModel.js";
 import bcrypt from "bcryptjs";
 import jsonwebtoken from 'jsonwebtoken'
 const loginUser = async (req, res) => {
