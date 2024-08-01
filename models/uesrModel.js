@@ -23,7 +23,11 @@ const schema = mongoose.Schema({
     isValid: {
         type: Boolean,
         default: false,
-    }
+    },
+    role: {
+        type: String,
+        role: "user"
+    },
 })
 
 const User = mongoose.model("User", schema)
