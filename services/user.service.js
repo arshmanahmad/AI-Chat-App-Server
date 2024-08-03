@@ -4,26 +4,31 @@ import jsonwebtoken from 'jsonwebtoken'
 
 const createUser = async (req, res) => {
     const { name, email, phoneNumber, password } = req.body;
-    const emailExist = await User.findOne({ email });
-    const passwordExist = await User.findOne({ password });
 
-    if (emailExist || passwordExist) {
-        res.status(201).json({
-            success: false,
-            message: `${emailExist ? "Email" : "Password"} already Taken`,
-        })
-        return;
-    }
-    const encryptedPassword = await bcrypt.hash(password, 10);
-
-    const newUser = new User({
-        name,
-        email,
-        phoneNumber,
-        password: encryptedPassword,
-    })
     try {
-        const savedUser = newUser.save();
+        // Check if email already exists
+        const emailExist = await User.findOne({ email });
+
+        if (emailExist) {
+            return res.status(409).json({
+                success: false,
+                message: "Email already taken",
+            });
+        }
+
+        // Hash the password
+        const encryptedPassword = await bcrypt.hash(password, 10);
+
+        // Create a new user
+        const newUser = new User({
+            name,
+            email,
+            phoneNumber,
+            password: encryptedPassword,
+        });
+
+        // Save the user and generate a token
+        const savedUser = await newUser.save();
         const token = jsonwebtoken.sign(
             {
                 userId: savedUser._id,
@@ -31,19 +36,24 @@ const createUser = async (req, res) => {
             },
             process.env.JWT_SECRET,
             { expiresIn: "4h" }
-        )
+        );
+
+        // Send the response with the token
         res.status(201).json({
             success: true,
-            message: "user created successfully",
-        })
+            message: "User created successfully",
+            token,
+        });
+
     } catch (err) {
         console.error(err);
         res.status(500).json({
             success: false,
-            message: "server error",
-        })
+            message: "Server error",
+        });
     }
-}
+};
+
 
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
