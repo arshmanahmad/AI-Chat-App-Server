@@ -8,11 +8,19 @@ const createUser = async (req, res) => {
     try {
         // Check if email already exists
         const emailExist = await User.findOne({ email });
+        const phoneNumberExists = await User.findOne({ phoneNumber });
 
         if (emailExist) {
             return res.status(409).json({
                 success: false,
                 message: "Email already taken",
+            });
+        }
+
+        if (phoneNumberExists) {
+            return res.status(409).json({
+                success: false,
+                message: "Phone Number already taken",
             });
         }
 
