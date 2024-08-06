@@ -7,6 +7,7 @@ const authRoutes = express.Router()
 
 authRoutes.post('/register',
     bodyValidator(userSchema),
+    // authenticate,
     catchAsync(userService.createUser)
 )
 authRoutes.post('/login',
