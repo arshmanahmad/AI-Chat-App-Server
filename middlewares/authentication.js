@@ -1,5 +1,5 @@
-import { User } from "../models/uesrModel";
-
+import { User } from "../models/uesrModel.js";
+import jwt from 'jsonwebtoken';
 const authenticate = async (req, res, next) => {
     const token = req.header("authorization") && req.header("authorization").split(" ")[1];
     if (token) {
@@ -15,8 +15,13 @@ const authenticate = async (req, res, next) => {
             }
             req.user = userObj
             next()
-        } catch (e) {
-
+        } catch {
+            res.status(401).send("Invalid token")
         }
+    } else {
+        res.status(401).send("Authenticate please")
     }
+}
+export {
+    authenticate
 }
