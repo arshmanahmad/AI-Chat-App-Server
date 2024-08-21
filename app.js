@@ -14,7 +14,7 @@ app.get("/", (req, res) => {
     res.send("welcome to the API");
 })
 
-//asd
+//asddsfdsf
 app.use('/api/auth', authRoutes)
 
 app.listen(5000, () => {
